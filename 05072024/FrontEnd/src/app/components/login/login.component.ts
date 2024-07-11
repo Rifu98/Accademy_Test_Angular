@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { UtenteLogin } from '../../dto/UtenteLogin';
 import { RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   logError:boolean=false
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private storageService: StorageService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$")]]
@@ -34,8 +35,8 @@ export class LoginComponent {
   onLogin() {
     if (this.loginForm.valid) {
       this.authService.login(new UtenteLogin(this.loginForm.value.email, this.loginForm.value.password)).subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token);
-        localStorage.setItem('user_email', (this.loginForm.value.email));
+        this.storageService.setLocalToken(res.token)
+        this.storageService.setProperty('user_email', (this.loginForm.value.email));
         this.router.navigate(["/profilo"]);
       }, (error: HttpErrorResponse) => {
         this.logError = true;

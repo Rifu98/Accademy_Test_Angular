@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { NgFor, NgClass } from '@angular/common';
 import { UtenteUpdate } from '../../dto/UtenteUpdate';
 import { RouterLink } from '@angular/router';
+import { StorageService } from '../../services/storage.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ProfiloComponent implements OnInit {
 
-  constructor(private profiloService: ProfiloService, private corsiService: CorsiService, private router: Router) { }
+  constructor(private profiloService: ProfiloService, private corsiService: CorsiService, private storageService: StorageService, private router: Router) { }
 
   utente: Utente = new Utente(0, "", "", "", "", new Array<Corso>(), new Array<Ruolo>());
   allCorsi: Corso[] = [];
@@ -36,7 +37,7 @@ export class ProfiloComponent implements OnInit {
   itemForGroup = 3;
 
   ngOnInit(): void {
-    this.profiloService.getProfilo(localStorage['user_email']).subscribe((res: Utente) => {
+    this.profiloService.getProfilo(this.storageService.getProperty('user_email'))?.subscribe((res: Utente) => {
       this.utente = res;
       this.corsiService.getCorsi().subscribe((res: Corso[]) => {
         this.allCorsi = res;
@@ -61,7 +62,7 @@ export class ProfiloComponent implements OnInit {
         updateCorsi,
         this.utente.ruoli
       );
-      this.profiloService.updateProfilo(utenteUpdate).subscribe((res) => {
+      this.profiloService.updateProfilo(utenteUpdate)?.subscribe((res) => {
         window.location.reload();
       })
     })
@@ -78,13 +79,13 @@ export class ProfiloComponent implements OnInit {
       updateCorsi,
       this.utente.ruoli
     );
-    this.profiloService.updateProfilo(utenteUpdate).subscribe((res) => {
+    this.profiloService.updateProfilo(utenteUpdate)?.subscribe((res) => {
       window.location.reload();
     })
   }
   logout() {
-    localStorage.removeItem('user_email');
-    localStorage.removeItem('access_token');
+    this.storageService.deleteProperty('user_email');
+    this.storageService.deleteLocalToken();
     this.router.navigate(["/"]);
   }
 }

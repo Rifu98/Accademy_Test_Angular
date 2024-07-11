@@ -4,13 +4,14 @@ import { UtenteLogin } from '../dto/UtenteLogin';
 import { UtenteSignup } from '../dto/UtenteSignup';
 import { Observable, catchError, lastValueFrom, map, of, retry, throwError } from 'rxjs';
 import { HashedPassword } from '../dto/HashedPassword';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storageService: StorageService) { }
 
   url = "http://localhost:8080/api/";
 
@@ -28,23 +29,32 @@ export class AuthService {
 
   isAuthenticated(): Observable<boolean> {
     let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+    try {
+      const token = this.storageService.getLocalToken();
 
-    return this.http.get(this.url + 'auth/isLogged', { headers, observe: 'response' }).pipe(
-      map((response: HttpResponse<any>) => {
-        return response.status === 200; 
-      }),
-      catchError((error) => {
-        return of(false);  
-      })
-    );
+      headers = headers.set('Authorization', 'Bearer ' + token);
+
+      return this.http.get(this.url + 'auth/isLogged', { headers, observe: 'response' }).pipe(
+        map((response: HttpResponse<any>) => {
+          return response.status === 200;
+        }),
+        catchError((error) => {
+          return of(false);
+        })
+      );
+    } catch (error) {
+      return of(false);
+    }
   }
-
   verifyPassword(utenteLogin: UtenteLogin): Observable<boolean> {
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer ' + localStorage['access_token'])
-    headers = headers.set('Content-Type', 'application/json')
-    return this.http.post<boolean>(this.url + 'auth/verify-password', JSON.stringify(utenteLogin), { headers});
+    try {
+      let headers = new HttpHeaders();
+      headers = headers.set('Authorization', 'Bearer ' + this.storageService.getLocalToken())
+      headers = headers.set('Content-Type', 'application/json')
+      return this.http.post<boolean>(this.url + 'auth/verify-password', JSON.stringify(utenteLogin), { headers });
+    } catch (error) {
+      return of(false);
+    }
   }
 
   hashPassword(pass: string) {
