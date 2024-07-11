@@ -1,0 +1,10 @@
+/* update-user.component.css */
+.update-user-form {
+  margin: 10vmin;
+  padding: 5vmin;
+}
+
+.error-message {
+  color: red;
+  margin-top: 1vmax;
+}

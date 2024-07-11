@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x:hidden;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  font-family: "Audiowide", sans-serif;
+}
+
+h1 {
+  font-size: 4vmin;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 3.5vmin;
+  font-weight:bold;
+}
+
+h3 {
+  font-size: 3vmin;
+}
+
+p {
+  font-size: 2vmin;
+}

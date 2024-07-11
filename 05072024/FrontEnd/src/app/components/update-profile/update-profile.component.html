@@ -1,0 +1,43 @@
+
+<mat-card class="update-user-form text-center">
+  <h2>Modifica Utente</h2>
+  <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()" class="d-flex flex-column align-items-center">
+
+    @if(updateUserForm.get('nome')?.touched && updateUserForm.get('nome')!.hasError('required')) {
+    <mat-error>Il nome è obbligatorio</mat-error>
+    }
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nome">
+    </mat-form-field>
+    @if(updateUserForm.get('cognome')?.touched && updateUserForm.get('cognome')!.hasError('required')) {
+    <mat-error>Il cognome è obbligatorio</mat-error>
+    }
+    <mat-form-field appearance="fill">
+      <mat-label>Cognome</mat-label>
+      <input matInput formControlName="cognome">
+    </mat-form-field>
+
+
+    @if (updateUserForm.get('newPasswod')?.value != null || updateUserForm.get('newPasswod')?.value != '') {
+    <mat-error>La password vecchia è obbligatoria se la vuoi cambiare</mat-error>
+    }
+    <mat-form-field appearance="fill">
+      <mat-label>Vecchia Password</mat-label>
+      <input matInput type="password" formControlName="oldPassword">
+    </mat-form-field>
+    @if (updateUserForm.get('newPassword')!.hasError('passwordPattern')){
+    <mat-error>
+      La password deve contenere almeno 8 caratteri, una lettera maiuscola, una minuscola, un numero e un carattere speciale
+    </mat-error>
+    }
+    <mat-form-field appearance="fill">
+      <mat-label>Nuova Password</mat-label>
+      <input matInput type="password" formControlName="newPassword">
+    </mat-form-field>
+    <button mat-flat-button color="primary" type="submit" [disabled]="!updateUserForm.valid">Aggiorna</button>
+  </form>
+  <div *ngIf="loginError" class="error-message">
+    Vecchia password errata! Riprova.
+  </div>
+</mat-card>

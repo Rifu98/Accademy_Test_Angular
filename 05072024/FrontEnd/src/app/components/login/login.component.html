@@ -1,0 +1,40 @@
+
+<div class="login-form text-center d-flex flex-column justify-content-around align-items-center">
+  <h2>Accedi</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class=" d-flex flex-column align-items-center">
+
+    @if(loginForm.get('email')?.touched && loginForm.get('email')!.hasError('required')) {
+    <mat-error>L'email è obbligatoria</mat-error>
+    }
+    @if(loginForm.get('email')!.hasError('email')) {
+    <mat-error>Formato email non valido</mat-error>
+    }
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required>
+    </mat-form-field>
+
+    @if (loginForm.get('password')?.touched &&loginForm.get('password')!.hasError('required')) {
+    <mat-error>La password è obbligatoria</mat-error>
+    }
+    @if (loginForm.get('password')!.hasError('pattern')){
+    <mat-error>
+      La password deve contenere almeno 8 caratteri, una lettera maiuscola, una minuscola, un numero e un carattere speciale
+    </mat-error>
+    }
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" required>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit" class="full-width" [disabled]="!loginForm.valid" c>Login</button>
+
+    @if (logError){
+    <mat-error>
+      Errore nel login! Riprova
+    </mat-error>
+    }
+  </form>
+  <h2>Non hai ancora un account?</h2>
+  <button mat-flat-button color="primary" routerLink="/register" class="full-width">Registrati</button>
+</div>

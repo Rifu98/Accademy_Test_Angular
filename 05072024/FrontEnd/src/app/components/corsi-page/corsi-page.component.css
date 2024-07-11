@@ -1,0 +1,66 @@
+.corsi-page {
+  margin-top: 2vh;
+  padding: 5vmax;
+  background-color: #5e5e5e;
+}
+.filtrati {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:space-around;
+}
+.course-card {
+  margin: 2vmax;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+  .course-card:hover {
+    transform: scale(1.05);
+  }
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
+}
+mat-card-content {
+  padding: 1vmax;
+}
+  mat-card {
+    padding: 1vmax;
+    text-align: center;
+    justify-content: space-between;
+  }
+.controlli {
+    background-color:white;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    padding:3vmax;
+}
+mat-card-title{
+    font-weight:bold
+}
+.controllo {
+  max-width: 25%;
+  border: 1px solid black;
+}
+.primo{
+  border: none;
+}
+.corpo {
+    display:flex;
+    flex-direction:row!important;
+}
+@media (max-width: 992px) {
+  .controllo {
+    max-width: 70%;
+  }
+  .controlli {
+      flex-direction:column;
+      align-items:center;
+  }
+
+}

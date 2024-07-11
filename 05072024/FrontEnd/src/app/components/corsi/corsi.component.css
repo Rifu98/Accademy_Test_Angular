@@ -1,0 +1,32 @@
+.courses-container {
+  padding: 5vmax;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  margin-bottom: 1vmax;
+}
+
+.course-card {
+  margin:2vmax;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+  .course-card:hover {
+    transform: scale(1.05);
+  }
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+}
+mat-card{
+    justify-content:space-between;
+}
+
+mat-card-title {
+  font-weight: bold
+}

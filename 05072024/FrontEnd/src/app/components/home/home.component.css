@@ -1,0 +1,33 @@
+.hero {
+  margin-top:5vh;
+  background-image: url('../../../../public/assets/img/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 5vmax;
+}
+.content {
+  padding: 5vmax;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.features, .testimonials, .gradient {
+  padding: 5vmin;
+}
+
+.cta {
+  background-size: cover;
+  background-image: url('../../../../public/assets/img/cover.jpg');
+}
+
+.gradient {
+  padding: 5vmax;
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  display:flex;
+  justify-content:center;
+}
+.feature-cards, .testimonial-cards {
+  margin-top: 5vmin;
+}
+mat-card{
+    margin: 1vmax;
+}

@@ -1,0 +1,37 @@
+<div class="corsi-page">
+  <div class="controlli">
+    <div class="controllo primo">
+      <input matInput type="text" placeholder="Cerca per nome del corso" [(ngModel)]="searchText" (input)="onSearchTextChange()">
+    </div>
+    <div class="controllo">
+      <mat-select [(ngModel)]="selectedCategory" (selectionChange)="onCategoryChange()">
+        <mat-option value="All">Tuute le Categorie</mat-option>
+        @for (category of categories; track category.id) {
+        <mat-option [value]="category.nomeCategoria">{{ category.nomeCategoria }}</mat-option>
+        }
+      </mat-select>
+    </div>
+    <div class="controllo">
+      <mat-select [(ngModel)]="selectedDuration" (selectionChange)="onDurationChange()">
+        <mat-option value="All">Tutte le durate</mat-option>
+        <mat-option value="10">< 10 ore</mat-option>
+        <mat-option value="20">< 20 ore</mat-option>
+        <mat-option value="30">< 30 ore</mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <div class="filtrati">
+    @for (course of filteredCorsi; track course.id) {
+    <mat-card class="course-card col-lg-4 col-sm-12">
+      <mat-card-header>
+        <mat-card-title>{{ course.nomeCorso }}</mat-card-title>
+        <mat-card-subtitle>{{ course.categoria.nomeCategoria }}</mat-card-subtitle>
+        <img mat-card-avatar [src]="course.imgUrl" alt="{{ course.nomeCorso }}">
+      </mat-card-header>
+      <mat-card-content>
+        <p class="text-bold">{{ course.descrizioneCompleta }}</p>
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+</div>

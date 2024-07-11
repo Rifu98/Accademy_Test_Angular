@@ -1,0 +1,87 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="profile-details">
+      <h1>{{utente.nome}} {{utente.cognome}}</h1>
+      <p><strong>Email:</strong> {{utente.email}}</p>
+    </div>
+    <div class="options">
+      <button mat-flat-button color="primary" routerLink="/modificaProfilo">Modifica Profilo</button>
+      <button mat-flat-button color="warn" (click)=" logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="profile-courses">
+    <h2>I miei corsi</h2>
+    <div class="course-list row">
+      @for (course of utente.corsi; track course.id) {
+      <mat-card class="course-card col-lg-3 col-sm-6 col-xs-12 mt-1 ms-1 me-1 mb-1">
+        <mat-card-title>{{course.nomeCorso}}</mat-card-title>
+        <mat-card-content>{{course.descrizioneBreve}}</mat-card-content>
+        <mat-card-footer>
+          <button mat-flat-button color="primary" (click)="unsubscribe(course.id)">Disiscriviti</button>
+        </mat-card-footer>
+      </mat-card>
+      }
+    </div>
+  </div>
+
+  <div class="available-courses d-md-block d-none">
+    <h2>Corsi disponibili</h2>
+    <div id="carouselExample" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item" *ngFor="let groupe of groupedCourses;let i = index" [ngClass]="{'active': i === 0}">
+          <div class="row justify-content-around">
+            <mat-card class="course-card col-3" *ngFor="let course of groupe;">
+              <mat-card-title class="mt-1">{{ course.nomeCorso }}</mat-card-title>
+              <img mat-card-image [src]="course.imgUrl" alt="{{ course.nomeCorso }}">
+              <mat-card-content>
+                <mat-card-subtitle>{{ course.categoria.nomeCategoria }}</mat-card-subtitle>
+                <p class="text-bold">{{ course.descrizioneBreve }}</p>
+              </mat-card-content>
+              <mat-card-footer>
+                <button mat-flat-button color="primary" (click)="subscribe(course.id)">Iscriviti</button>
+              </mat-card-footer>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="available-courses d-md-none d-blok">
+    <h2>Corsi disponibili</h2>
+    <div id="carouselExampleLarge" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item" *ngFor="let course of corsiDisponibili;let i = index" [ngClass]="{'active': i === 0}">
+          <mat-card class="course-card">
+            <mat-card-title class="mt-1">{{ course.nomeCorso }}</mat-card-title>
+            <img mat-card-image [src]="course.imgUrl" alt="{{ course.nomeCorso }}">
+            <mat-card-content>
+              <mat-card-subtitle>{{ course.categoria.nomeCategoria }}</mat-card-subtitle>
+              <p class="text-bold">{{ course.descrizioneBreve }}</p>
+            </mat-card-content>
+            <mat-card-footer>
+              <button mat-flat-button color="primary" (click)="subscribe(course.id)">Iscriviti</button>
+            </mat-card-footer>
+          </mat-card>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleLarge" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleLarge" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</div>

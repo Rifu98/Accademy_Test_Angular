@@ -1,0 +1,2 @@
+nella cartella 05072024 è contenuto il frontend in angular
+nella cartella 28062024 è contenuto il backend in jaxrs

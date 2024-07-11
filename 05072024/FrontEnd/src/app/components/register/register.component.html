@@ -1,0 +1,62 @@
+<div class="auth-container">
+  @if(!alreadyLogged) {
+  <div class="auth-forms d-flex align-items-center flex-column">
+    <h2 class="mb-5">Registrati</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+
+      @if (signupForm.get('nome')?.touched && signupForm.get('name')!.hasError('required')) {
+      <mat-error>Il nome è obbligatorio</mat-error>
+      }
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+
+      @if (signupForm.get('cognome')?.touched && signupForm.get('cognome')!.hasError('required')) {
+      <mat-error>Il cognome è obbligatorio</mat-error>
+      }
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Cognome</mat-label>
+        <input matInput formControlName="cognome" required>
+      </mat-form-field>
+
+      @if(signupForm.get('email')?.touched && signupForm.get('email')!.hasError('required')) {
+      <mat-error>L'email è obbligatoria</mat-error>
+      }
+      @if(signupForm.get('email')!.hasError('email')) {
+      <mat-error>Formato email non valido</mat-error>
+      }
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required>
+      </mat-form-field>
+
+      @if (signupForm.get('password')?.touched && signupForm.get('password')!.hasError('required')) {
+      <mat-error>La password è obbligatoria</mat-error>
+      }
+      @if (signupForm.get('password')!.hasError('pattern')){
+      <mat-error>
+        La password deve contenere almeno 8 caratteri, una lettera maiuscola, una minuscola, un numero e un carattere speciale
+      </mat-error>
+      }
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" required>
+      </mat-form-field>
+      @if(alreadyRegistered) {
+      <mat-error>Email già registrata</mat-error>
+      }
+      <button mat-flat-button color="accent" type="submit" [disabled]="!signupForm.valid" c>Signup</button>
+    </form>
+    <div class="d-flex flex-row mt-5">
+      <h2 class="me-5">Hai già un account?</h2>
+      <button mat-flat-button color="accent" routerLink="/login">Log in</button>
+    </div>
+  </div>
+  } @else {
+  <div class="text-center">
+    <h2 class="mb-5">Hai già effettuato l'accesso, vai al profilo</h2>
+    <button mat-flat-button color="accent" routerLink="/profilo">Profilo</button>
+  </div>
+  }
+</div>

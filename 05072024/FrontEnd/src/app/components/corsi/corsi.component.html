@@ -1,0 +1,51 @@
+<div class="courses-container text-center">
+  <h1 >Corsi di Programmazione</h1>
+
+  <div id="carouselExample" class="carousel slide d-md-block d-none">
+    <div class="carousel-inner">
+      <div class="carousel-item" *ngFor="let groupe of groupedCourses;let i = index" [ngClass]="{'active': i === 0}">
+        <div class="row justify-content-around">
+          <mat-card class="course-card col-3" *ngFor="let course of groupe;">
+            <mat-card-title class="mt-1">{{ course.nomeCorso }}</mat-card-title>
+            <img mat-card-image class="col-lg-12" [src]="course.imgUrl" alt="{{ course.nomeCorso }}">
+            <mat-card-content>
+              <mat-card-subtitle>{{ course.categoria.nomeCategoria }}</mat-card-subtitle>
+              <p class="text-bold">{{ course.descrizioneBreve }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div id="carouselExampleLarge" class="carousel slide d-md-none d-blok">
+    <div class="carousel-inner">
+      <div class="carousel-item" *ngFor="let course of courses;let i = index" [ngClass]="{'active': i === 0}">
+        <mat-card class="course-card">
+          <mat-card-title class="mt-1">{{ course.nomeCorso }}</mat-card-title>
+          <img mat-card-image [src]="course.imgUrl" alt="{{ course.nomeCorso }}">
+          <mat-card-content>
+            <mat-card-subtitle>{{ course.categoria.nomeCategoria }}</mat-card-subtitle>
+            <p class="text-bold">{{ course.descrizioneBreve }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleLarge" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleLarge" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <button mat-flat-button color="primary" routerLink="/corsi">Scopri di più</button>
+</div>
