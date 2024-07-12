@@ -17,6 +17,7 @@ import { NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { passwordValidator } from '../../validators/passwordValidator';
 import { HashedPassword } from '../../dto/HashedPassword';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -42,6 +43,7 @@ export class UpdateProfileComponent implements OnInit {
     private fb: FormBuilder,
     private profiloService: ProfiloService,
     private authService: AuthService,
+    private storageService: StorageService,
     private router: Router
   ) {
     this.updateUserForm = this.fb.group({
@@ -53,7 +55,7 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.profiloService.getProfilo(localStorage['user_email']).subscribe(user => {
+    this.profiloService.getProfilo(this.storageService.getProperty('user_email'))?.subscribe(user => {
       this.user = user;
       this.updateUserForm.patchValue({
         nome: user.nome,
@@ -91,7 +93,7 @@ export class UpdateProfileComponent implements OnInit {
       this.user.ruoli 
     );
 
-    this.profiloService.updateProfilo(updatedUser).subscribe(() => {
+    this.profiloService.updateProfilo(updatedUser)?.subscribe(() => {
       this.router.navigate(["/profilo"]);
     });
   }
